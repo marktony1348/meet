@@ -25,7 +25,7 @@ class App extends Component {
   componentWillUnmount(){
     this.mounted = false;
   }
-  updateEvents = (location) => {
+  updateEvents = (location, eventCount) => {
     getEvents().then((events) => {
       const locationEvents = (location === 'all') ?
         events :
