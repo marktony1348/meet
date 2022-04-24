@@ -31,13 +31,13 @@ describe('<Event /> component', () => {
     });
 
     test('render details when show details button is clicked', () => {
-        EventWrapper.setState({ collapsed: false });
+        EventWrapper.setState({ collapsed: true });
         EventWrapper.find('.show-details').simulate('click');
         expect(EventWrapper.state('collapsed')).toBe(false);
     });
 
     test('hide details when button is clicked again', () => {
-        EventWrapper.setState({ collapsed: true });
+        EventWrapper.setState({ collapsed: false });
         EventWrapper.find('.hide-details').simulate('click');
         expect(EventWrapper.state('collapsed')).toBe(true);
     });
