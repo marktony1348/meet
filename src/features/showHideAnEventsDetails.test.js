@@ -6,7 +6,7 @@ import App from "../App";
 
 const feature = loadFeature('./src/features/showHideAnEventsDetails.feature');
 
-defineFeature(feature, (test) => {
+defineFeature(feature, test => {
     let AppWrapper;
 
     test('An event element is collapsed by default.', ({ given, when, then }) => {

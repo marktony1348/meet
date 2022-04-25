@@ -37,10 +37,11 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-         <EventList events={this.state.events} NumberOfEvents={this.state.NumberOfEvents}/>
+      <div className="App"> 
+         <EventList events={this.state.events} NumberOfEvents={this.state.numberOfEvents}/>
          <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
-         <NumberOfEvents />
+         <NumberOfEvents numberOfEvents={this.state.numberOfEvents} 
+            updateNumberOfEvents={this.updateNumberOfEvents} />
       </div>
     );
   }
