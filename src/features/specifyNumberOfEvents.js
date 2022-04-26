@@ -10,12 +10,12 @@ defineFeature(feature, (test) => {
      console.log('spn reached');
     let AppWrapper;
 
-    test('When user  hasn’t specified a number, 32 is the default number.', ({ given, when, then }) => {
+    test('When user  has not specified a number, 32 is the default number.', ({ given, when, then }) => {
         given('the user is on the main page of the app', async () => {
             AppWrapper = await mount(<App />);
         });
 
-        when('the user  hasn’t specified a number of events', () => {
+        when('the user  has not specified a number of events', () => {
             AppWrapper.update();
         });
 
@@ -30,12 +30,12 @@ defineFeature(feature, (test) => {
         });
 
         when('the user set a number of events he or she wants to see in the “Number of events” box', () => {
-            const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents)
+            const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
             NumberOfEventsWrapper.find('.inputNumberOfEvents').simulate('change', { target: { value: 1 } });
         });
 
         then('this number of events will be displayed', () => {
-            const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents)
+            const NumberOfEventsWrapper = AppWrapper.find (NumberOfEvents);
             NumberOfEventsWrapper.find('.inputNumberOfEvents').simulate('change', { target: { value: 1 } });
             expect(AppWrapper.state('numberOfEvents')).toEqual(1)
         });
