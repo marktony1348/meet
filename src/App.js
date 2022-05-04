@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import './App.css';
 import './nprogress.css';
-import EventList from './EventList';
+
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
-import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
-import WelcomeScreen from './WelcomeScreen';
-import { WarningAlert } from './Alert';
-// import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Sector, Cell } from 'recharts';
-// import { mockData } from './mock-data';
+import EventList from './EventList';
 // import EventGenre from './EventGenre';
+import { WarningAlert, ErrorAlert } from './Alert';
+import WelcomeScreen from './WelcomeScreen';
+import { extractLocations, getEvents, checkToken, getAccessToken } from './api';
+// import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 class App extends Component {
+
   state = {
+    numberOfEvents: 32,
     events: [],
     locations: [],
     currentLocation: 'all',
-    numberOfEvents: 32,
-    showWelcomeScreen: undefined,
-    warningText: ''
+    showWelcomeScreen: undefined
   }
-
- 
 
   async componentDidMount() {
     this.mounted = true;
@@ -37,36 +35,35 @@ class App extends Component {
         }
       });
     }
-    if (!navigator.onLine) {
-      this.setState({
-        warningText: 'Please connect to the internet'
-      });
-    } else {
-      this.setState({
-        warningText: ''
-      });
-    }
   }
+
 
   componentWillUnmount() {
     this.mounted = false;
   }
 
   updateNumberOfEvents = (numberOfEvents) => {
-    this.setState(
-      {
-        numberOfEvents,
-      },
-      this.updateEvents(this.state.locations, numberOfEvents)
-    );
+    const value = numberOfEvents;
+
+    if (value <= 0 || value > 32) {
+      this.setState({
+        numberOfEvents: "",
+        infoText: "choose number 1 to 32",
+      });
+      console.log('this.setState:', this.setState.infoText);
+    } else {
+      this.setState({
+        numberOfEvents: value,
+        infoText: ""
+      });
+    }
+    this.updateEvents(this.state.currentLocation, numberOfEvents);
   };
 
-  updateEvents = (location, eventCount) => {
+  updateEvents = (location = 'all') => {
     getEvents().then((events) => {
-      const locationEvents =
-        location === "all"
-          ? events
-          : events.filter((event) => event.location === location);
+      const locationEvents = location === 'all'
+        ? events : events.filter((event) => event.location === location);
       if (this.mounted) {
         this.setState({
           events: locationEvents.slice(0, this.state.numberOfEvents),
@@ -74,7 +71,7 @@ class App extends Component {
         });
       }
     });
-  };
+  }
 
   getData = () => {
     const { locations, events } = this.state;
@@ -88,126 +85,50 @@ class App extends Component {
 
   render() {
     if (this.state.showWelcomeScreen === undefined) return <div className="App" />
-    const { numberOfEvents, locations, events, warningText } = this.state;
+
+    // eslint-disable-next-line no-unused-vars
+    let { numberOfEvents, infoText, events } = this.state;
 
     return (
       <div className="App">
-        <CitySearch locations={locations} updateEvents={this.updateEvents} /> <br>
-        </br>
-        <NumberOfEvents numberOfEvents={numberOfEvents} updateNumberOfEvents={this.updateNumberOfEvents} />
-        <EventList events={events} />
-        <WarningAlert text={warningText} />
-        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen} getAccessToken={() => { getAccessToken() }} />
+        {!navigator.onLine ? <WarningAlert
+          text='You are not connected to the internet.' /> :
+          <WarningAlert
+            text='' />
+        }
+        <h1 className="title">Meet Up</h1>
+        <CitySearch
+          locations={this.state.locations}
+          updateEvents={this.updateEvents}
+        />
+        <NumberOfEvents
+          numberOfEvents={numberOfEvents}
+          updateNumberOfEvents={this.updateNumberOfEvents}
+        />
+        {infoText &&
+          <ErrorAlert text={this.state.infoText} />
+        }
+        {/* <div className="data-vis-wrapper">
+          <EventGenre events={events} />
+          <ResponsiveContainer height={200}>
+            <ScatterChart margin={{
+              top: 20, right: 20, bottom: 20, left: 20,
+            }}
+            >
+              <CartesianGrid />
+              <XAxis type="category" dataKey="city" name="city" />
+              <YAxis type="number" dataKey="number" name="number of events" />
+              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+              <Scatter name="A school" data={this.getData()} fill="#8884d8" />
+            </ScatterChart>
+          </ResponsiveContainer>
+        </div> */}
+        <EventList events={this.state.events} />
+        {/* <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => { getAccessToken() }} /> */}
       </div>
     );
   }
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // src/App.js
-// import './nprogress.css';
-// import React, { Component } from 'react';
-// import './App.css';
-// import EventList from './EventList';
-// import CitySearch from './CitySearch';
-// import NumberOfEvents from './NumberOfEvents';
-// import WelcomeScreen from './WelcomeScreen';
-// import { getEvents, extractLocations, checkToken, getAccessToken } from './api';
-// import { WarningAlert } from './Alert';
-
-
-// class App extends Component {
-//   state = {
-//     events: [],
-//     locations: [],
-//     numberOfEvents: 32,
-//     showWelcomeScreen: undefined,
-//     warningText: "",
-//   }
-
-//   async componentDidMount() {
-//     this.mounted = true;
-
-//     const accessToken = localStorage.getItem('access_token');
-//     const isTokenValid = (await checkToken(accessToken)).error ? false :
-//       true;
-//     const searchParams = new URLSearchParams(window.location.search);
-//     const code = searchParams.get("code");
-//     this.setState({ showWelcomeScreen: !(code || isTokenValid) });
-//     if ((code || isTokenValid) && this.mounted) {
-//       getEvents().then((events) => {
-//         if (this.mounted) {
-//           this.setState({ events, locations: extractLocations(events) });
-//         }
-//       });
-//     }
-  
-//     getEvents().then((events) => {
-//       if (this.mounted) {
-//         this.setState({
-//           events: events.slice(0, this.state.numberOfEvents),
-//           locations: extractLocations(events),
-//         });
-//       }
-//     });
-//   }
-
- 
-
-
-//   componentWillUnmount(){
-//     this.mounted = false;
-//   }
-//   updateEvents = (location, eventCount = this.state.numberOfEvents) => {
-//     getEvents().then((events) => {
-//       const locationEvents = (location === 'all') ?
-//         events :
-//         events.filter((event) => event.location === location);
-//       if (this.mounted) {
-//           this.setState({
-//             events: locationEvents.slice(0, eventCount),
-//             currentLocation: location,
-//           });
-//         }
-//       });
-//     };
-//     updateEventNumbers = (eventCount) => {
-//       this.setState({
-//         numberOfEvents: eventCount,
-//       });
-//       this.updateEvents(this.state.currentLocation, eventCount);
-//     };
-     
-//   render() {
-//     if (this.state.showWelcomeScreen === undefined) return <div className="App"/>
-
-//     return (
-//       <div className="App">
-//         <WarningAlert id='warningAlert' text={this.state.warningText} />
-//         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
-//         <NumberOfEvents numberOfEvents={this.state.numberOfEvents} 
-//           updateNumberOfEvents={this.updateNumberOfEvents} />
-//         <EventList events={this.state.events} NumberOfEvents={this.state.numberOfEvents}/>
-
-//         <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
-//           getAccessToken={() => { getAccessToken() }} />
-
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;

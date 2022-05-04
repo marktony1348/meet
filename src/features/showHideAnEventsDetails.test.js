@@ -1,3 +1,4 @@
+
 import { loadFeature, defineFeature } from "jest-cucumber";
 import React from "react";
 import { mount } from "enzyme";
@@ -6,7 +7,7 @@ import App from "../App";
 
 const feature = loadFeature('./src/features/showHideAnEventsDetails.feature');
 
-defineFeature(feature, test => {
+defineFeature(feature, (test) => {
     let AppWrapper;
 
     test('An event element is collapsed by default.', ({ given, when, then }) => {
@@ -19,7 +20,7 @@ defineFeature(feature, test => {
         });
 
         then('the event details will be collapsed.', () => {
-            expect(AppWrapper.find('.extra-details')).toHaveLength(0)
+            expect(AppWrapper.find('.event-description')).toHaveLength(0)
         });
     });
 
@@ -30,11 +31,11 @@ defineFeature(feature, test => {
 
         when('the user clicks on an individual event', () => {
             AppWrapper.update();
-            AppWrapper.find('.show-details').at(0).simulate('click');
+            AppWrapper.find('.btn-details').at(0).simulate('click');
         });
 
         then('the event details will be displayed', () => {
-            expect(AppWrapper.find('.extra-details')).toHaveLength(1);
+            expect(AppWrapper.find('.event-description')).toHaveLength(1);
         });
     });
 
@@ -42,16 +43,20 @@ defineFeature(feature, test => {
         given('The user has clicked on an event to display details', async () => {
             AppWrapper = await mount(<App />);
             AppWrapper.update();
-            AppWrapper.find('.show-details').at(0).simulate('click');
-            expect(AppWrapper.find('.extra-details')).toHaveLength(1);
+            AppWrapper.find('.btn-details').at(0).simulate('click');
+            expect(AppWrapper.find('.event-description')).toHaveLength(1);
         });
 
         when('the user clicks on “close” button', () => {
-            AppWrapper.find('.hide-details').at(0).simulate('click');
+            AppWrapper.find('.btn-details').at(0).simulate('click');
         });
 
         then('the event details will hide', () => {
-            expect(AppWrapper.find('.extra-details')).toHaveLength(0);
+            expect(AppWrapper.find('.event-description')).toHaveLength(0);
         });
     });
-});
+
+
+
+
+})

@@ -41,6 +41,8 @@ class WarningAlert extends Alert {
       this.color = 'orange';
     }
 }
-  
 
-export { InfoAlert, ErrorAlert, WarningAlert };
+export { InfoAlert };
+export { ErrorAlert };
+export { WarningAlert };
+
