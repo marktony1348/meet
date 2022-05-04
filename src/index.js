@@ -5,12 +5,8 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import * as atatus from 'atatus-spa';
-atatus.config('aff3c73486c94667b2416ea75e756ed0').install();
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+
+ReactDOM.render(<App />, document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
