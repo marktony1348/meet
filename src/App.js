@@ -127,8 +127,8 @@ class App extends Component {
         </div>
         {/* <h4>Events in each city</h4> */}
         <EventList events={this.state.events} />
-        {/* <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => { getAccessToken() }} />  */}
+        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => { getAccessToken() }} /> 
       </div>
     );
   }
