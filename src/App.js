@@ -5,11 +5,11 @@ import './nprogress.css';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import EventList from './EventList';
-// import EventGenre from './EventGenre';
+import EventGenre from './EventGenre';
 import { WarningAlert, ErrorAlert } from './Alert';
 import WelcomeScreen from './WelcomeScreen';
 import { extractLocations, getEvents, checkToken, getAccessToken } from './api';
-// import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 class App extends Component {
 
@@ -108,24 +108,27 @@ class App extends Component {
         {infoText &&
           <ErrorAlert text={this.state.infoText} />
         }
-        {/* <div className="data-vis-wrapper">
+        <div className="data-vis-wrapper">
+          
           <EventGenre events={events} />
-          <ResponsiveContainer height={200}>
+       
+          <ResponsiveContainer height={400}>
             <ScatterChart margin={{
               top: 20, right: 20, bottom: 20, left: 20,
             }}
             >
               <CartesianGrid />
               <XAxis type="category" dataKey="city" name="city" />
-              <YAxis type="number" dataKey="number" name="number of events" />
+              <YAxis allowDecimals={false} type="number" dataKey="number" name="number of events" />
               <Tooltip cursor={{ strokeDasharray: '3 3' }} />
               <Scatter name="A school" data={this.getData()} fill="#8884d8" />
             </ScatterChart>
           </ResponsiveContainer>
-        </div> */}
+        </div>
+        {/* <h4>Events in each city</h4> */}
         <EventList events={this.state.events} />
-        <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
-          getAccessToken={() => { getAccessToken() }} />
+        {/* <WelcomeScreen showWelcomeScreen={this.state.showWelcomeScreen}
+          getAccessToken={() => { getAccessToken() }} /> */}
       </div>
     );
   }
