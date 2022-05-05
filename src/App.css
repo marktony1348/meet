@@ -18,7 +18,7 @@
 
 .App {
   text-align: center;
-  padding: 2% 11%;
+  padding: 1% 11%;
  
 }
 
@@ -210,7 +210,7 @@ input[type="number"] {
   align-items: center;
   flex-direction: column;
   margin: 5%;
-  padding: 5px 17px 0px 17px;
+  padding: 3px 17px 0px 17px;
   background-color: #fefefe;
   box-shadow: 10px 10px 8px #888888,
               10px 10px 8px #888888;
@@ -219,6 +219,9 @@ input[type="number"] {
 .data-vis-wrapper .recharts-responsive-container {
   min-width: 100%;
   display: flex;
+  /* padding: 3px; */
+  /* padding-top: 2px; */
+  top:
 }
 .recharts-surface {
   overflow: visible;

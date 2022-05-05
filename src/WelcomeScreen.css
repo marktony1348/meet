@@ -6,8 +6,9 @@
 .WelcomeScreen {
     position: absolute;
     width: 80%;
-    height: 80%;
+    height: 95%;
     box-sizing: border-box;
+    padding: 5px;
     top: 30px; 
     margin: 0 auto;
     box-shadow: 

@@ -23,4 +23,26 @@ that I can see more or fewer events in the events list at once.
 
 + Scenario 1: When user hasn’t specified a number, 32 is the default number
 + Scenario 2: User can change the number of events they want to see
+#### FEATURE 3: SPECIFY NUMBER OF EVENTS
+**User Story:** As a user, I would like to be able to specify the number of events I want to view in the app so
+that I can see more or fewer events in the events list at once.
 
++ Scenario 1: When user hasn’t specified a number, 32 is the default number
++ Scenario 2: User can change the number of events they want to see
+
+#### FEATURE 4: USE THE APP WHEN OFFLINE
+**User Story:** As a user, I would like to be able to use the app when offline so that I can see the events I
+viewed the last time I was online.
+
++ Scenario 1: Show cached data when there is no internet connection.
++ Scenario 2: Show error when user changes the settings (city, event number range)
+
+#### FEATURE 5: ADD AN APP SHORTCUT TO THE HOME SCREEN
+**User Story:** As a user, I would like to be able to add the app shortcut to my home screen so that I can
+open the app faster (PWA attributes).
+
+#### FEATURE 6: DATA VISUALIZATION
+**User Story:** As a user, I would like to be able to see a chart showing the upcoming events in each city so
+that I know what events are organized in which city.
+
++ Scenario 1: Show a chart with the number of upcoming events in each city.
