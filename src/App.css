@@ -219,9 +219,7 @@ input[type="number"] {
 .data-vis-wrapper .recharts-responsive-container {
   min-width: 100%;
   display: flex;
-  /* padding: 3px; */
-  /* padding-top: 2px; */
-  top:
+  
 }
 .recharts-surface {
   overflow: visible;
