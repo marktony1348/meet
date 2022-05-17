@@ -53,6 +53,7 @@ module.exports.getAuthURL = async () => {
     statusCode: 200,
     headers: {
       "Access-Control-Allow-Origin": "*",
+      "mode": "no-cors",
     },
     body: JSON.stringify({
       authUrl: authUrl,
@@ -145,6 +146,7 @@ module.exports.getAccessToken = async (event) => {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
+          "mode": "no-cors",
         },
         body: JSON.stringify({ events: results.data.items })
       }
@@ -154,6 +156,7 @@ module.exports.getAccessToken = async (event) => {
         statusCode: 500,
         headers: {
           "Access-Control-Allow-Origin": "*",
+          "mode": "no-cors",
         },
         body: JSON.stringify(err),
       };

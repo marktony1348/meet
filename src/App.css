@@ -212,8 +212,8 @@ input[type="number"] {
   margin: 5%;
   padding: 5px 17px 0px 17px;
   background-color: #fefefe;
-  box-shadow: 10px 10px 8px #888888,
-              10px 10px 8px #888888;
+  box-shadow: 10px 10px 8px #888888;
+              /* 10px 10px 8px #888888; */
   border-radius: 25px;
 }
 .data-vis-wrapper .recharts-responsive-container {
